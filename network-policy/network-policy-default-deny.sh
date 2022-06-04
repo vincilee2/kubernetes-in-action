@@ -10,7 +10,7 @@ ip1=$(kubectl get pod nginx1 -o jsonpath='{.status.podIP}')
 
 # try connect ngix1 from ngix2
 echo "try curl $ip1 from nginx2"
-kubectl exec -it nginx2 -n -- env ip1=$ip1 bash -c 'echo curl ${ip1} from nginx2; curl ${ip1}'
+kubectl exec -it nginx2 -n n2 -- env ip1=$ip1 bash -c 'echo curl ${ip1} from nginx2; curl ${ip1}'
 
 # create network-policy
 kubectl create -f network-policy-default-deny.yaml
@@ -22,6 +22,6 @@ kubectl exec -it nginx2 -n n2 -- env ip1=$ip1 bash -c 'echo curl ${ip1} from ngi
 
 # delete resources
 kubectl delete pod nginx1
-kubectl delete pod nginx2
-kubectl delete networkpolicy default-deny 
+kubectl delete pod nginx2 -n n2
+kubectl delete networkpolicy deny-other-namespaces 
 kubectl delete namespace n2
