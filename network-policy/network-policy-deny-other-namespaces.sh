@@ -1,10 +1,14 @@
+set -a
+. ../common/utils.sh
+
 # create namespace
 kubectl create namespace n2
 # create pod
 kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1
 kubectl run nginx2 --image=nginx --restart=Never --labels=app=v2 -n n2
 
-sleep 10
+waitForPodCreated nginx1 default
+waitForPodCreated nginx2 n2
 # get nginx1 pod ip
 ip1=$(kubectl get pod nginx1 -o jsonpath='{.status.podIP}')
 
