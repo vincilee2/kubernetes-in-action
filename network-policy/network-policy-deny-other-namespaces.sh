@@ -13,7 +13,7 @@ echo "try curl $ip1 from nginx2"
 kubectl exec -it nginx2 -n n2 -- env ip1=$ip1 bash -c 'echo curl ${ip1} from nginx2; curl ${ip1}'
 
 # create network-policy
-kubectl create -f network-policy-default-deny.yaml
+kubectl create -f network-policy-deny-other-namespaces.yaml
 
 sleep 10
 # try connect ngix1 from ngix2 again
