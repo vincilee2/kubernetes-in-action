@@ -1,4 +1,4 @@
-function waitForPodCreated
+waitForPodCreated ()
 {
     pod=$1
     namespace=$2

@@ -1,5 +1,5 @@
 set -a
-. ../common/utils.sh
+. "../common/utils.sh"
 
 # create namespace
 kubectl create namespace n2
@@ -19,7 +19,6 @@ kubectl exec -it nginx2 -n n2 -- env ip1=$ip1 bash -c 'echo curl ${ip1} from ngi
 # create network-policy
 kubectl create -f network-policy-deny-other-namespaces.yaml
 
-sleep 10
 # try connect ngix1 from ngix2 again
 echo "try curl $ip1 from nginx2 after creating deny network policy"
 kubectl exec -it nginx2 -n n2 -- env ip1=$ip1 bash -c 'echo curl ${ip1} from nginx2 after creating deny netwoek plicy; curl ${ip1}'
